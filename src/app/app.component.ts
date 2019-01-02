@@ -10,9 +10,12 @@ import { EventSesrvice } from './event.service';
 })
 export class AppComponent {
   calendarOptions: Options;
- displayEvent: any;
- show:boolean=false;
+  displayEvent: any;
+  show: boolean = false;
+  public saveUsername: boolean;
+
   @ViewChild(CalendarComponent) ucCalendar: CalendarComponent;
+  language: string="en";
   constructor(protected eventService: EventSesrvice) { }
 
   ngOnInit() {
@@ -20,7 +23,7 @@ export class AppComponent {
       this.calendarOptions = {
         editable: true,
         eventLimit: false,
-        locale:'en',
+        locale: this.language,
         header: {
           left: 'prev,next today',
           center: 'title',
@@ -34,7 +37,7 @@ export class AppComponent {
     this.displayEvent = model;
   }
   eventClick(model: any) {
-    this.show=true;
+    this.show = true;
     model = {
       event: {
         // id: model.event.id,
@@ -63,4 +66,12 @@ export class AppComponent {
     }
     this.displayEvent = model;
   }
+  public onSaveUsernameChanged(value: boolean) {
+    debugger;
+    this.saveUsername = value;
+    if (this.saveUsername == true) {
+      this.language = "ar";
+    }
+  }
+
 }

@@ -1,4 +1,11 @@
-<!--The content below is only a placeholder and can be replaced.-->
+<!--The content below is only a placeholder and can be replaced.-->  
+  <label>
+    <input type="checkbox"   #saveUserNameCheckBox
+    id="saveUserNameCheckBox" 
+    type="checkbox" 
+    [checked]="saveUsername" 
+    (change)="onSaveUsernameChanged(saveUserNameCheckBox.checked)">{{language}}
+  </label>
 <div style="display: flex;">
   <div style="width:50%" *ngIf="calendarOptions">
     <ng-fullcalendar #ucCalendar [options]="calendarOptions" (eventClick)="eventClick($event.detail)" (eventDrop)="updateEvent($event.detail)"
