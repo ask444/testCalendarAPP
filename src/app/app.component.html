@@ -1,0 +1,15 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div style="display: flex;">
+  <div style="width:50%" *ngIf="calendarOptions">
+    <ng-fullcalendar #ucCalendar [options]="calendarOptions" (eventClick)="eventClick($event.detail)" (eventDrop)="updateEvent($event.detail)"
+      (eventResize)="updateEvent($event.detail)" (clickButton)="clickButton($event.detail)"></ng-fullcalendar>
+  </div>
+  <div style="width:50%;padding: 20px;" *ngIf="show">
+    <!-- <p>Display event : {{displayEvent | json}}</p> -->
+    <ul>
+      <li><a>{{displayEvent.event.title | json}}</a></li>
+      <li><a>{{displayEvent.event.allDay}}</a></li>
+    </ul>
+  </div>
+</div>
+<!-- <router-outlet></router-outlet> -->
