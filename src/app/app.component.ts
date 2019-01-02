@@ -12,7 +12,8 @@ export class AppComponent {
   calendarOptions: Options;
   displayEvent: any;
   show: boolean = false;
-  public saveUsername: boolean;
+  public saveUsername: any="en";
+  items:any[]=["en","ar"]
 
   @ViewChild(CalendarComponent) ucCalendar: CalendarComponent;
   language: string="en";
@@ -66,11 +67,16 @@ export class AppComponent {
     }
     this.displayEvent = model;
   }
-  public onSaveUsernameChanged(value: boolean) {
+  public onSaveUsernameChanged(value: any) {
     debugger;
     this.saveUsername = value;
-    if (this.saveUsername == true) {
-      this.language = "ar";
+    if (value =="ar") {
+    this.language="ar";
+      this.ucCalendar.fullCalendar('option', 'locale', this.language);
+    }
+    else{
+      this.language="en";
+      this.ucCalendar.fullCalendar('option', 'locale', this.language);
     }
   }
 

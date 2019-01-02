@@ -1,10 +1,10 @@
 <!--The content below is only a placeholder and can be replaced.-->  
-  <label>
+  <label *ngFor="let item of items">
     <input type="checkbox"   #saveUserNameCheckBox
     id="saveUserNameCheckBox" 
     type="checkbox" 
-    [checked]="saveUsername" 
-    (change)="onSaveUsernameChanged(saveUserNameCheckBox.checked)">{{language}}
+    [checked]="(saveUsername==item)?true:false" 
+    (change)="onSaveUsernameChanged(item)">{{item}}
   </label>
 <div style="display: flex;">
   <div style="width:50%" *ngIf="calendarOptions">
