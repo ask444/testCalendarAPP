@@ -12,11 +12,13 @@ export class AppComponent {
   calendarOptions: Options;
   displayEvent: any;
   show: boolean = false;
-  public saveUsername: any="en";
-  items:any[]=["en","ar"]
+  defaultShow: boolean = true;
+
+  public saveUsername: any = "EN";
+  items: any[] = ["EN", "AR"]
 
   @ViewChild(CalendarComponent) ucCalendar: CalendarComponent;
-  language: string="en";
+  language: string = "en";
   constructor(protected eventService: EventSesrvice) { }
 
   ngOnInit() {
@@ -30,7 +32,9 @@ export class AppComponent {
           center: 'title',
           right: 'month'
         },
-        events: data
+        events: data,
+        fixedWeekCount: false,
+        showNonCurrentDates: false
       };
     });
   }
@@ -39,13 +43,15 @@ export class AppComponent {
   }
   eventClick(model: any) {
     this.show = true;
+    this.defaultShow = false;
     model = {
       event: {
-        // id: model.event.id,
+        id: model.event.id,
         // start: model.event.start,
         // end: model.event.end,
         title: model.event.title,
         allDay: model.event.allDay
+
         // other params
       },
       duration: {}
@@ -61,21 +67,21 @@ export class AppComponent {
         title: model.event.title
         // other params
       },
-      duration: {
-        _data: model.duration._data
-      }
+      // duration: {
+      //   _data: model.duration._data
+      // }
     }
     this.displayEvent = model;
   }
   public onSaveUsernameChanged(value: any) {
     debugger;
     this.saveUsername = value;
-    if (value =="ar") {
-    this.language="ar";
+    if (value == "AR") {
+      this.language = "AR";
       this.ucCalendar.fullCalendar('option', 'locale', this.language);
     }
-    else{
-      this.language="en";
+    else {
+      this.language = "EN";
       this.ucCalendar.fullCalendar('option', 'locale', this.language);
     }
   }
