@@ -7,14 +7,14 @@ body {
 
 .fc-event,
 .fc-event:hover {
-  background-color: #fff !important;
+  background-color: transparent !important;
   border: none;
-  color: #2c8c30;
+  color: #2c8c30 !important;
   /* default BACKGROUND color */
 }
 
 .fc-event:active {
-  color: red;
+  color: rgb(0, 255, 157);
 }
 
 .fc-content {
@@ -32,6 +32,10 @@ body {
   float: none !important;
 }
 
+.intro_item_content {
+  height: auto !important;
+}
+
 .intro_item_new {
   width: 100%;
   height: auto;
@@ -39,6 +43,73 @@ body {
   padding-bottom: 25px;
 }
 
-// .fc-unthemed td.fc-today {
-//   background: #10bd4a;
-// }
+.intro_center {
+  top: 70px;
+}
+
+.date_text {
+  background: #fba71e;
+  padding: 3px 3px 3px 10px;
+  border-radius: 20px;
+  font-size: 16px;
+  font-weight: 600;
+  text-align: center;
+  color: #fff;
+  top: 35px;
+}
+
+.offer_text {
+  background: #fba71e;
+  padding: 3px 3px 3px 10px;
+  border-radius: 5px;
+  font-size: 14px;
+  color: #fff;
+
+}
+
+.offer_text a {
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+
+}
+
+.book_text {
+  float: right;
+  font-size: 14px;
+  font-weight: 700;
+  padding-right: 5px;
+}
+
+.happy_text {
+  color: #fff !important;
+  font-size: 16px !important;
+}
+
+.intro_content ul li {
+
+
+  padding: 5px 5px 5px 0px;
+  font-size: 16px;
+  color: #5b5b5b;
+  /* text-indent: -9px; */
+  /* list-style-type: disc; */
+  list-style-position: inside;
+  /* padding: 10px 0 10px 20px; */
+  text-indent: -5px;
+  margin-left: 14px;
+}
+
+.intro_button {
+  margin-top: 57px;
+  z-index: 1;
+  top: 150px;
+}
+
+.fc-day-grid-container {
+  height: 369px !important;
+}
+
+.fc-widget-content .fc-scroll {
+  height: 306px !important;
+}

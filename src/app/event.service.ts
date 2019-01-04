@@ -31,22 +31,22 @@ export class EventSesrvice {
         },
         {
             id: 2,
-            title: currency_symbols.INR+'3992',
-            start: yearMonth + '-07',
+            title: currency_symbols.INR + '3992',
+            start: yearMonth + '-03',
             allDay: true
             // end: yearMonth + '-10'
         },
         {
             id: 3,
-            title: currency_symbols.INR+'3995',
-            start: yearMonth + '-08',
+            title: currency_symbols.INR + '3995',
+            start: yearMonth + '-04',
             allDay: true
             // end: yearMonth + '-10'
         },
         {
             id: 4,
-            title: currency_symbols.INR+'3990',
-            start: yearMonth + '-09',
+            title: currency_symbols.INR + '3990',
+            start: yearMonth + '-05',
             allDay: true
             // end: yearMonth + '-10'
         },
@@ -61,7 +61,7 @@ export class EventSesrvice {
         //     start: yearMonth + '-16T16:00:00'
         // },
         {
-            title: currency_symbols.INR+'2500',
+            title: currency_symbols.INR + '2500',
             start: yearMonth + '-11',
             // end: yearMonth + '-13',
             allDay: true
@@ -92,7 +92,7 @@ export class EventSesrvice {
         //     start: yearMonth + '-13T07:00:00'
         // },
         {
-            title: currency_symbols.INR+'3299',
+            title: currency_symbols.INR + '3299',
             url: 'http://google.com/',
             start: yearMonth + '-28',
             allDay: true
