@@ -2,6 +2,10 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { CalendarComponent } from 'ng-fullcalendar';
 import { Options } from 'fullcalendar';
 import { EventSesrvice } from '../event.service';
+
+declare var $: any;
+
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -30,6 +34,25 @@ export class HomeComponent {
   constructor(protected eventService: EventSesrvice) { }
 
   ngOnInit() {
+
+
+
+    $(function() {
+      $('#datetimepicker12').datetimepicker({
+        locale: 'ar',
+        inline: true,
+        sideBySide: true,
+        format: 'L'
+      });
+      $('#datetimepicker13').datetimepicker({
+        locale: 'en',
+        inline: true,
+        sideBySide: true,
+        format: 'L'
+      });
+    });
+
+
     this.eventService.getEvents().subscribe(data => {
       this.calendarOptions = {
         editable: true,
