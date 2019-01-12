@@ -2,9 +2,27 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { CalendarComponent } from 'ng-fullcalendar';
 import { Options } from 'fullcalendar';
 import { EventSesrvice } from '../event.service';
+import HijriDate, { toHijri } from 'hijri-date/lib/safe';
+
 
 declare var $: any;
 
+var currency_symbols = {
+  'USD': '$', // US Dollar
+  'EUR': '€', // Euro
+  'GBP': '£', // British Pound Sterling
+  'ILS': '₪', // Israeli New Sheqel
+  'INR': '₹', // Indian Rupee
+  'JPY': '¥', // Japanese Yen
+  'KRW': '₩', // South Korean Won
+  'NGN': '₦', // Nigerian Naira
+  'PHP': '₱', // Philippine Peso
+  'PLN': 'zł', // Polish Zloty
+  'PYG': '₲', // Paraguayan Guarani
+  'THB': '฿', // Thai Baht
+  'UAH': '₴', // Ukrainian Hryvnia
+  'VND': '₫', // Vietnamese Dong
+};
 
 @Component({
   selector: 'app-home',
@@ -36,11 +54,24 @@ export class HomeComponent {
   constructor(protected eventService: EventSesrvice) { }
 
   ngOnInit() {
-   function gmod(n, m) {
+
+    debugger;
+    const today = new HijriDate();
+    const day_eid_adha = new HijriDate(1438, 12, 10); // عيد الأضحى لسنة 1438
+    const dayGreg = day_eid_adha.toGregorian();
+    //  Fri Sep 01 2017 00:00:00 GMT+0300 (AST)
+    //------ Convert from Gregorian to Hijri---------
+    const nowGreg = new Date();
+    const nowHijri = toHijri(nowGreg);
+
+
+
+
+    function gmod(n, m) {
       return ((n % m) + m) % m;
     }
-  
-   function kuwaiticalendar(adjust) {
+
+    function kuwaiticalendar(adjust) {
       var today = new Date(adjust);
       // if (adjust) {
       //   var adjustmili = 1000 * 60 * 60 * 24 * adjust;
@@ -56,7 +87,7 @@ export class HomeComponent {
         y -= 1;
         m += 12;
       }
-  
+
       var a = Math.floor(y / 100.);
       var b = 2 - a + Math.floor(a / 4.);
       if (y < 1583) b = 0;
@@ -67,9 +98,9 @@ export class HomeComponent {
           if (day > 4) b = -10;
         }
       }
-  
+
       var jd = Math.floor(365.25 * (y + 4716)) + Math.floor(30.6001 * (m + 1)) + day + b - 1524;
-  
+
       b = 0;
       if (jd > 2299160) {
         a = Math.floor((jd - 1867216.25) / 36524.25);
@@ -86,19 +117,19 @@ export class HomeComponent {
         month = ee - 13;
       }
       year = cc - 4716;
-  
+
       if (adjust) {
         var wd = gmod(jd + 1 - adjust, 7) + 1;
       } else {
         var wd = gmod(jd + 1, 7) + 1;
       }
-  
+
       var iyear = 10631. / 30.;
       var epochastro = 1948084;
       var epochcivil = 1948085;
-  
+
       var shift1 = 8.01 / 60.;
-  
+
       var z = jd - epochastro;
       var cyc = Math.floor(z / 10631.);
       z = z - 10631 * cyc;
@@ -108,9 +139,9 @@ export class HomeComponent {
       var im = Math.floor((z + 28.5001) / 29.5);
       if (im == 13) im = 12;
       var id = z - Math.floor(29.5001 * im - 29);
-  
+
       var myRes = new Array(8);
-  
+
       myRes[0] = day; //calculated day (CE)
       myRes[1] = month - 1; //calculated month (CE)
       myRes[2] = year; //calculated year (CE)
@@ -119,15 +150,16 @@ export class HomeComponent {
       myRes[5] = id; //islamic date
       myRes[6] = im - 1; //islamic month
       myRes[7] = iy; //islamic year
-  
+
       return myRes;
     }
-  function  writeIslamicDate(adjustment) {
+    function writeIslamicDate(adjustment) {
       var wdNames = new Array("Ahad", "Ithnin", "Thulatha", "Arbaa", "Khams", "Jumuah", "Sabt");
       var iMonthNames = new Array("Muharram", "Safar", "Rabi'ul Awwal", "Rabi'ul Akhir",
         "Jumadal Ula", "Jumadal Akhira", "Rajab", "Sha'ban",
         "Ramadan", "Shawwal", "Dhul Qa'ada", "Dhul Hijja");
       var iDate = kuwaiticalendar(adjustment);
+      debugger;
       var outputIslamicDate = wdNames[iDate[4]] + ", "
         + iDate[5] + " " + iMonthNames[iDate[6]] + " " + iDate[7] + " AH";
       return outputIslamicDate;
@@ -150,6 +182,22 @@ export class HomeComponent {
     // });
 
     var fruitvegbasket = [];
+    var count = 1005;
+
+
+    function islamic(adjustment) {
+      var wdNames = new Array("Ahad", "Ithnin", "Thulatha", "Arbaa", "Khams", "Jumuah", "Sabt");
+      var iMonthNames = new Array("Muharram", "Safar", "Rabi'ul Awwal", "Rabi'ul Akhir",
+        "Jumadal Ula", "Jumadal Akhira", "Rajab", "Sha'ban",
+        "Ramadan", "Shawwal", "Dhul Qa'ada", "Dhul Hijja");
+      var iDate = adjustment;
+      debugger;
+      var outputIslamicDate =
+        + iDate.date + " " + iMonthNames[iDate.month] + " " + iDate.year + " AH";
+      return outputIslamicDate;
+    }
+
+
 
     var $calendar = $('#calendar').fullCalendar({
       header: {
@@ -159,15 +207,40 @@ export class HomeComponent {
       },
 
       defaultView: 'month',
-
       dayRender: function (date, cell) {
         console.log("MY DATE:", date);
         this.calendarDate = new Date(date);
+        const year = this.calendarDate.getFullYear();
+        const month = this.calendarDate.getMonth();
+        const day = this.calendarDate.getDate();
+        const mydate = new Date(year, month, day);
+        console.log("sending date:", mydate);
+        const nowHijri = toHijri(mydate);
+        const hijriyear = nowHijri.getFullYear();
+        const hijrimonth = nowHijri.getMonth();
+        const hijriday = nowHijri.getDate();
+
+        const convertedday = new HijriDate(hijriyear, hijrimonth, hijriday);
+        console.log("FORMAT:", convertedday.format);
+        const formatedDate = islamic(convertedday);
+        console.log("MY DAY:",formatedDate);
+
+
+
+
+
+        //  Monday Rajab 20 1438 18:50:44
+
+
+
+
+
+        debugger;
         var datestring = this.calendarDate.getFullYear() + "-" + (this.calendarDate.getMonth() + 1) + "-" + this.calendarDate.getDate()
         var arb = writeIslamicDate(this.calendarDate);
         fruitvegbasket.push({
-          title: 'All Day Event'+"  "+arb,
-          start: datestring,
+          title: currency_symbols.USD + " " + (count++) + " " + "  " + formatedDate,
+          start: mydate,
           allDay: true
         });
         console.log("MY EVE:", fruitvegbasket);
